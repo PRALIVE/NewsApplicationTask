@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">NewsApplication</string>
+    <string name="error_message">Maximum Limit Reached</string>
+</resources>
