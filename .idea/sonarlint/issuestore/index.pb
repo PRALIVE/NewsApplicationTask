@@ -33,3 +33,5 @@ w
 Gapp/src/main/java/com/example/newsapplication/viemodel/NewsViewModel.kt,9\f\9fc4e8b9e2603f31f50eea42bd9e60917dc52ee4
 r
 Bapp/src/main/java/com/example/newsapplication/SavedNewsFragment.kt,3\c\3ca0ab48feab0035b99be36c198fed9c0059c6fd
+y
+Iapp/src/main/java/com/example/newsapplication/paging/NewsPagingAdapter.kt,1\1\1152d3b261269436f3b16061bf41da676c8caf14
