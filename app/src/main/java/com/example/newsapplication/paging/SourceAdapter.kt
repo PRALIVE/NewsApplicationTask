@@ -1,5 +1,6 @@
 package com.example.newsapplication.paging
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,13 +12,16 @@ import com.example.newsapplication.R
 import com.example.newsapplication.databinding.CheckboxLayoutBinding
 import com.example.newsapplication.models.Filter
 
-class SourceAdapter() : RecyclerView.Adapter<SourceAdapter.ViewHolder>() {
+class SourceAdapter(
+    var notifyAdapter: () -> Unit
+) : RecyclerView.Adapter<SourceAdapter.ViewHolder>() {
 
     var selectedSource : String? = ""
 
     inner class ViewHolder(val binding : CheckboxLayoutBinding) : RecyclerView.ViewHolder(binding.root){
         fun setData(filter : Filter){
             binding.contentCheckboxLayout.text = filter.filter
+            binding.contentCheckboxLayout.isChecked = filter.filter == selectedSource
         }
     }
 
@@ -33,7 +37,7 @@ class SourceAdapter() : RecyclerView.Adapter<SourceAdapter.ViewHolder>() {
 
     private val diffUtilCallback = object : DiffUtil.ItemCallback<Filter>() {
         override fun areItemsTheSame(oldItem: Filter, newItem: Filter): Boolean {
-            return oldItem.id == newItem.id
+            return false
         }
 
         override fun areContentsTheSame(oldItem: Filter, newItem: Filter): Boolean {
@@ -44,15 +48,18 @@ class SourceAdapter() : RecyclerView.Adapter<SourceAdapter.ViewHolder>() {
     val differ = AsyncListDiffer(this, diffUtilCallback)
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-           holder.setData(differ.currentList[position])
-        if(differ.currentList[position].filter == selectedSource){
-            holder.binding.contentCheckboxLayout.isChecked = true
-        }else{
-            holder.binding.contentCheckboxLayout.isChecked = false
-        }
+        holder.setData(differ.currentList[position])
 
         holder.binding.contentCheckboxLayout.setOnClickListener {
-            selectedSource = differ.currentList[position].filter
+            if(selectedSource != differ.currentList[position].filter){
+                selectedSource = differ.currentList[position].filter
+                Log.d("contentslogged","sourceselected : $selectedSource")
+                notifyDataSetChanged()
+            }else{
+                selectedSource = ""
+                Log.d("contentslogged","sourceselected : $selectedSource")
+                notifyDataSetChanged()
+            }
         }
     }
 

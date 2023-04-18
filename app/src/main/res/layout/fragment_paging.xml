@@ -44,7 +44,6 @@
                 android:id="@+id/sub_filter"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -59,49 +58,15 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintStart_toStartOf="parent"/>
 
-                <CheckBox
-                    android:id="@+id/content_checkbox_1"
-                    android:layout_width="0dp"
-                    android:layout_height="20dp"
-                    android:text="Elon Musk"
-                    android:textSize="12sp"
-                    android:layout_marginTop="5dp"
-                    app:layout_constraintEnd_toEndOf="parent"
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/content_filter_recycler_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    android:visibility="gone"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/content_filter" />
-
-                <CheckBox
-                    android:id="@+id/content_checkbox_2"
-                    android:layout_width="0dp"
-                    android:layout_height="20dp"
-                    android:text="Austin"
-                    android:textSize="12sp"
-                    android:layout_marginTop="5dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/content_checkbox_1" />
-
-                <CheckBox
-                    android:id="@+id/content_checkbox_3"
-                    android:layout_width="0dp"
-                    android:layout_height="20dp"
-                    android:text="Tesla"
-                    android:textSize="12sp"
-                    android:layout_marginTop="5dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/content_checkbox_2" />
-
-                <CheckBox
-                    android:id="@+id/content_checkbox_4"
-                    android:layout_width="0dp"
-                    android:layout_height="20dp"
-                    android:text="Vehicle"
-                    android:textSize="12sp"
-                    android:layout_marginTop="5dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/content_checkbox_3" />
+                    app:layout_constraintTop_toBottomOf="@id/content_filter"/>
 
                 <TextView
                     android:id="@+id/source_filter"
@@ -109,30 +74,19 @@
                     android:layout_height="wrap_content"
                     android:text="Filter by Source"
                     android:layout_marginTop="12dp"
-                    app:layout_constraintTop_toBottomOf="@id/content_checkbox_4"
+                    app:layout_constraintTop_toBottomOf="@id/content_filter_recycler_view"
                     app:layout_constraintStart_toStartOf="parent"/>
 
-                <CheckBox
-                    android:id="@+id/source_checkbox_1"
-                    android:layout_width="0dp"
-                    android:layout_height="20dp"
-                    android:text="Marketscreener.com"
-                    android:textSize="12sp"
-                    android:layout_marginTop="5dp"
-                    app:layout_constraintEnd_toEndOf="parent"
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/source_filter_recycler_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    android:layout_marginTop="10dp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/source_filter" />
+                    app:layout_constraintTop_toBottomOf="@id/source_filter"/>
 
-                <CheckBox
-                    android:id="@+id/source_checkbox_2"
-                    android:layout_width="0dp"
-                    android:layout_height="20dp"
-                    android:text="Investing.com"
-                    android:textSize="12sp"
-                    android:layout_marginTop="5dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/source_checkbox_1" />
 
                 <TextView
                     android:id="@+id/apply"
@@ -142,7 +96,7 @@
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
                     android:layout_marginTop="12dp"
-                    app:layout_constraintTop_toBottomOf="@id/source_checkbox_2"
+                    app:layout_constraintTop_toBottomOf="@id/source_filter_recycler_view"
                     app:layout_constraintStart_toStartOf="parent"/>
             </androidx.constraintlayout.widget.ConstraintLayout>
 

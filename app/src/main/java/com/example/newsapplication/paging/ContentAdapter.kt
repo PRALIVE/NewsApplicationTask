@@ -1,5 +1,6 @@
 package com.example.newsapplication.paging
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
@@ -10,13 +11,16 @@ import com.example.newsapplication.R
 import com.example.newsapplication.databinding.CheckboxLayoutBinding
 import com.example.newsapplication.models.Filter
 
-class ContentAdapter() : RecyclerView.Adapter<ContentAdapter.ViewHolder>() {
+class ContentAdapter(
+    var notifyAdapter: () -> Unit
+) : RecyclerView.Adapter<ContentAdapter.ViewHolder>() {
 
     var selectedContent : String? = ""
 
     inner class ViewHolder(val binding : CheckboxLayoutBinding) : RecyclerView.ViewHolder(binding.root){
         fun setData(filter : Filter){
             binding.contentCheckboxLayout.text = filter.filter
+            binding.contentCheckboxLayout.isChecked = filter.filter == selectedContent
         }
     }
 
@@ -32,7 +36,7 @@ class ContentAdapter() : RecyclerView.Adapter<ContentAdapter.ViewHolder>() {
 
     private val diffUtilCallback = object : DiffUtil.ItemCallback<Filter>() {
         override fun areItemsTheSame(oldItem: Filter, newItem: Filter): Boolean {
-            return oldItem.id == newItem.id
+            return false
         }
 
         override fun areContentsTheSame(oldItem: Filter, newItem: Filter): Boolean {
@@ -49,14 +53,16 @@ class ContentAdapter() : RecyclerView.Adapter<ContentAdapter.ViewHolder>() {
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.setData(differ.currentList[position])
 
-        if(differ.currentList[position].filter == selectedContent){
-            holder.binding.contentCheckboxLayout.isChecked = true
-        }else{
-            holder.binding.contentCheckboxLayout.isChecked = false
-        }
-
         holder.binding.contentCheckboxLayout.setOnClickListener {
-            selectedContent = differ.currentList[position].filter
+            if(selectedContent != differ.currentList[position].filter){
+                selectedContent = differ.currentList[position].filter
+                Log.d("contentslogged","contentselected : $selectedContent")
+                notifyDataSetChanged()
+            }else{
+                selectedContent = ""
+                Log.d("contentslogged","contentselected : $selectedContent")
+                notifyDataSetChanged()
+            }
         }
     }
 }
